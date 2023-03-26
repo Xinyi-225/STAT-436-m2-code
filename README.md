@@ -229,8 +229,8 @@ p3 = bp1("thalach")+
 
 ```
 
-```{r,fig.width=8, fig.height=16}
-p1/p2/p3
+```{r,fig.width = 12}
+p1+p2+p3+plot_layout(guide = "collect")
 ```
 
 
