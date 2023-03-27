@@ -35,7 +35,7 @@ summary(model)
 ```
 
 
-#Data visualization
+#Data overview
 ```{r, fig.width = 18, fig.height = 16}
 p <- list()
  p[["bar1"]] <- ggplot(data,aes(x=(trestbps)))+
