@@ -2,7 +2,6 @@
 title: "Project m2_final code"
 author: "Xinyi Wang"
 date: "2023-03-25"
-output: html_document
 ---
 
 ```{r setup, include=FALSE,message=F}
@@ -13,12 +12,18 @@ library(lubridate)
 library(patchwork)
 library(rstatix)
 library(ggpubr)
-#install.packages("RColorBrewer")
 library(RColorBrewer)
 ```
 
-```{r,r,message=F}
+#read dataset
+```{r}
 data=read.csv("https://github.com/yicenyang/stat436/raw/main/heart.csv")
+```
+
+#Clean the dataset and some prepare works
+```{r,message=F, include=FALSE}
+data%>%drop_na()
+data$index <- 1:nrow(data)
 head(data)
 ```
 
@@ -27,15 +32,6 @@ head(data)
 ```{r}
 model = glm(target~thalach+trestbps+chol,data = data, family = binomial(link = "logit"))
 summary(model)
-```
-
-
-```{r,message=F, include=FALSE}
-##clean the dataset and some prepare works
-data$target=as.factor(data$target)
-data$target=as.factor(data$target)
-data%>%drop_na()
-data$index <- 1:nrow(data)
 ```
 
 
