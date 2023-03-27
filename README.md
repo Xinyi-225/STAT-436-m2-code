@@ -6,7 +6,6 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE,message=F}
-knitr::opts_chunk$set(echo = TRUE)
 library(DT)
 library(shiny)
 library(tidyverse)
@@ -14,6 +13,8 @@ library(lubridate)
 library(patchwork)
 library(rstatix)
 library(ggpubr)
+#install.packages("RColorBrewer")
+library(RColorBrewer)
 ```
 
 ```{r,r,message=F}
@@ -122,8 +123,10 @@ ui <- fluidPage(
             
             ),
     column(6, dataTableOutput("table")),
+    column(6,textOutput("info")),
     column(6,textOutput("average_heart_disease_rate"))
   ),
+  
 )
  
 
@@ -141,10 +144,13 @@ server <- function(input, output) {
   output$histogram_age <- renderPlot(plot_overlay(selected(),"age",1))
   output$scatterplot <- renderPlot(scatterplot(data, selected()))
   output$table <- renderDataTable(data_table(data, selected()))
+  
   output$average_heart_disease_rate <- renderText(data_mean(data, selected()))
+  output$info = renderText({" average heart disease rate by selected data"})
 }
  
-app1 = shinyApp(ui, server)
+ 
+app1 =  shinyApp(ui, server)
 ```
 
 
@@ -208,7 +214,7 @@ thalach= stat(x = "thalach", y = "target")
 
 ```{r}
 bp1 = function(x){
-  ggboxplot(heart4, x = "target", y = x, palette = "jco",facet.by = "age_range")+ theme_bw()
+  ggboxplot(heart4, x = "target", y = x,fill = "target", palette = "jco",facet.by = "age_range")+theme_bw()
 }
 ```
 
@@ -225,7 +231,6 @@ p2 = bp1("trestbps")+
 p3 = bp1("thalach")+ 
   stat_pvalue_manual(thalach, label = "custom.label") +
   scale_y_continuous(expand = expansion(mult = c(0.05, 0.10)))
-
 
 ```
 
