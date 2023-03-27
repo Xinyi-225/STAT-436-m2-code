@@ -15,16 +15,13 @@ library(ggpubr)
 library(RColorBrewer)
 ```
 
-#read dataset
-```{r}
-data=read.csv("https://github.com/yicenyang/stat436/raw/main/heart.csv")
-```
 
-#Clean the dataset and some prepare works
+#Data preparation and data cleaning
 ```{r,message=F, include=FALSE}
-data%>%drop_na()
+data = read.csv("https://github.com/yicenyang/stat436/raw/main/heart.csv")%>%
+  drop_na()
 data$index <- 1:nrow(data)
-head(data)
+data
 ```
 
 
@@ -39,21 +36,20 @@ summary(model)
 ```{r, fig.width = 18, fig.height = 16}
 p <- list()
  p[["bar1"]] <- ggplot(data,aes(x=(trestbps)))+
-  geom_bar(aes(fill=target))
+  geom_bar(aes(fill=as.factor(target)))
  
  p[["scatter"]] <- ggplot(data,aes(x=age,y=thalach))+
-  geom_point(aes(col=target,shape=as.factor(sex)))+
-  theme(legend.position = "none") 
+  geom_point(aes(col=as.factor(target),shape=as.factor(sex)))
  
- p[["bar2"]] <-ggplot(data,aes(x=(chol)))+
-  geom_bar(aes(fill=target))+
+ p[["bar2"]] <- ggplot(data,aes(x=(chol)))+
+  geom_bar(aes(fill=as.factor(target)))+
    theme(legend.position = "none") 
 
 
 
 (p[["bar1"]]+p[["bar2"]])/ p[["scatter"]] +
     plot_layout(guides = "collect") &
-   plot_annotation(theme = theme(legend.position = "bottom", title = element_text(size = 10)))
+   plot_annotation(theme = theme(legend.position = "right", title = element_text(size = 10)))
 ```
 
 #Linked brushing
