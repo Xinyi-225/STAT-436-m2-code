@@ -90,7 +90,7 @@ scatterplot <- function(data, selected_) {
     data %>%
       mutate(selected_ = selected_) %>%
       ggplot() +
-      geom_point(aes(chol,thalach , col=target, shape=as.factor(sex),alpha = as.numeric(selected_))) +
+      geom_point(aes(chol,thalach, col=as.factor(target), shape=as.factor(sex),alpha = as.numeric(selected_))) +
       scale_alpha(range = c(0.05, 0.6))+
     labs(shape="sex")
 }
