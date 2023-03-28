@@ -48,7 +48,6 @@ p <- list()
 
 
 (p[["bar1"]]+p[["bar2"]])/ p[["scatter"]] +
-    plot_layout(guides = "collect") &
    plot_annotation(theme = theme(legend.position = "right", title = element_text(size = 10)))
 ```
 
