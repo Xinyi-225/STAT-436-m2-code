@@ -16,7 +16,7 @@ library(RColorBrewer)
 ```
 
 
-#Data preparation and data cleaning
+**Data preparation and data cleaning**
 ```{r,message=F, include=FALSE}
 data = read.csv("https://github.com/yicenyang/stat436/raw/main/heart.csv")%>%
   drop_na()
@@ -25,14 +25,14 @@ data
 ```
 
 
-#Logistic regression
+**Logistic regression**
 ```{r}
 model = glm(target~thalach+trestbps+chol,data = data, family = binomial(link = "logit"))
 summary(model)
 ```
 
 
-#Data overview
+**Data overview**
 ```{r, fig.width = 18, fig.height = 16}
 p <- list()
  p[["bar1"]] <- ggplot(data,aes(x=(trestbps)))+
@@ -51,7 +51,7 @@ p <- list()
    plot_annotation(theme = theme(legend.position = "right", title = element_text(size = 10)))
 ```
 
-#Linked brushing
+**Create functions**
 
 ```{r}
 data_table <- function(data, selected_) {
@@ -164,7 +164,7 @@ heart4
 ```
 
 
-#stat test and boxplots
+**stat test and boxplots**
 
 ```{r}
 #generate function
@@ -230,7 +230,7 @@ p1+p2+p3+plot_layout(guide = "collect")
 ```
 
 
-#shiny usmap
+**shiny usmap**
 
 ```{r}
 # prepare data
@@ -271,7 +271,7 @@ plot_choropleth <- function(filtered_data) {
 }
 
 
-# the interactive visulization of gragh 
+**main code of usmap** 
 ui <- fluidPage(
   titlePanel("Choropleth Map by Gender and Race"),
   
